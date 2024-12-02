@@ -10,7 +10,7 @@ module Event
     def self.perform_for!(operation)
       Rails.application.eager_load! if Rails.env.development? || Rails.env.test?
 
-      handler ||= HandlerService.descendants.find { |d| d.apply_to?(operation) }
+      handler = HandlerService.descendants.find { |d| d.apply_to?(operation) }
 
       raise InvalidOperationType, "Invalid event type" unless handler
 
